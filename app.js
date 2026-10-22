@@ -360,13 +360,26 @@ class LoveApp {
 
     // Jar Hit Area
     if (this.dom.jarHitArea) {
+      const triggerGlow = () => {
+        this.dom.jarHitArea.classList.add('glowing');
+        clearTimeout(this._glowTimer);
+        this._glowTimer = setTimeout(() => {
+          this.dom.jarHitArea.classList.remove('glowing');
+        }, 650);
+      };
+
+      this.dom.jarHitArea.addEventListener('pointerdown', triggerGlow);
+      this.dom.jarHitArea.addEventListener('touchstart', triggerGlow, { passive: true });
+
       this.dom.jarHitArea.addEventListener('click', () => {
+        triggerGlow();
         this.openMessageForDay(this.state.currentDay);
       });
 
       this.dom.jarHitArea.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
+          triggerGlow();
           this.openMessageForDay(this.state.currentDay);
         }
       });
@@ -375,6 +388,10 @@ class LoveApp {
     // Status Panel Tag Click
     if (this.dom.panelStatusPill) {
       this.dom.panelStatusPill.addEventListener('click', () => {
+        if (this.dom.jarHitArea) {
+          this.dom.jarHitArea.classList.add('glowing');
+          setTimeout(() => this.dom.jarHitArea.classList.remove('glowing'), 650);
+        }
         this.openMessageForDay(this.state.currentDay);
       });
     }
@@ -1057,9 +1074,10 @@ class LoveApp {
 
         // Center horizontally
         const hitX = (cw - hitW) / 2;
-        // Position vertically to align with jar body
-        const rawHitY = offsetY + (jarNormY * renderedH);
-        const hitY = Math.max(rawHitY, ch * 0.36);
+        // Position vertically to align with jar body, accounting for background position + downward offset
+        const bgOffsetY = -14;
+        const rawHitY = offsetY + (jarNormY * renderedH) + bgOffsetY;
+        const hitY = Math.max(rawHitY, ch * 0.34);
 
         this.dom.jarHitArea.style.left = `${Math.round(hitX)}px`;
         this.dom.jarHitArea.style.top = `${Math.round(hitY)}px`;

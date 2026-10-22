@@ -45,23 +45,7 @@
 
       <!-- Right Actions -->
       <div class="header-right">
-        <!-- Streak Indicator Pill -->
-        <button class="streak-badge" id="navStreakBadge" aria-label="عرض تفاصيل الستريك ومحاولات الاستعادة">
-          <span class="streak-flame-icon">🔥</span>
-          <span id="streakNumberTop">0 أيام</span>
-        </button>
-
-        <!-- Profile / Settings Button (with dynamic avatar support) -->
-        <button class="profile-btn" id="navProfileBtn" aria-label="الإعدادات والصورة الشخصية">
-          <div id="navbarAvatarContainer" class="nav-avatar-wrapper">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="default-avatar-svg">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
-        </button>
-
-        <!-- Mobile Menu Toggle Button -->
+        <!-- Mobile Menu Toggle Button (Left on Mobile) -->
         <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="القائمة" aria-expanded="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
             <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -69,6 +53,25 @@
             <line x1="3" y1="18" x2="21" y2="18"></line>
           </svg>
         </button>
+
+        <!-- Right Group: Profile Icon & Streak Badge grouped at far right -->
+        <div class="header-right-group">
+          <!-- Profile / Settings Button (with dynamic avatar support) -->
+          <button class="profile-btn" id="navProfileBtn" aria-label="الإعدادات والصورة الشخصية">
+            <div id="navbarAvatarContainer" class="nav-avatar-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="default-avatar-svg">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+          </button>
+
+          <!-- Streak Indicator Pill -->
+          <button class="streak-badge" id="navStreakBadge" aria-label="عرض تفاصيل الستريك ومحاولات الاستعادة">
+            <span class="streak-flame-icon">🔥</span>
+            <span id="streakNumberTop">0 أيام</span>
+          </button>
+        </div>
       </div>
 
       <!-- Mobile Dropdown Navigation -->
