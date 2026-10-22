@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>365 Days of Love — 365 رسالة حب واطمئنان</title>
+  <meta name="description" content="365 Days of Love — 365 رسالة حب وطمأنينة ويقين لكل يوم في السنة.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+
+  <!-- Google Fonts: Playfair Display, Inter, Caveat, Amiri -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Top Navigation Header -->
+    <header class="top-header" role="banner">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-link" id="brandHomeLink" aria-label="365 Days of Love الرئيسية">
+        <svg class="brand-heart-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        <span class="brand-text">365 Days of Love</span>
+      </a>
+
+      <!-- Center Navigation Pills (Desktop) -->
+      <nav class="nav-pills" aria-label="شريط التنقل الرئيسي">
+        <button class="nav-item active" id="navHome" aria-current="page">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>الرئيسية</span>
+        </button>
+        <button class="nav-item" id="navMessages">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span>الرسائل والأرشيف</span>
+        </button>
+        <button class="nav-item" id="navFavorites">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          <span>المفضلة</span>
+        </button>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="header-right">
+        <!-- Streak Indicator Pill -->
+        <button class="streak-badge" id="navStreakBadge" aria-label="عرض تفاصيل الستريك ومحاولات الاستعادة">
+          <span class="streak-flame-icon">🔥</span>
+          <span id="streakNumberTop">0 أيام</span>
+        </button>
+
+        <!-- Profile / Settings Button (with dynamic avatar support) -->
+        <button class="profile-btn" id="navProfileBtn" aria-label="الإعدادات والصورة الشخصية">
+          <div id="navbarAvatarContainer" class="nav-avatar-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="default-avatar-svg">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="القائمة" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Dropdown Navigation -->
+      <div class="mobile-nav-menu" id="mobileNavMenu">
+        <button class="mobile-nav-item" onclick="window.loveApp.closeAllModals();">
+          <span>🏠 الرئيسية</span>
+        </button>
+        <button class="mobile-nav-item" onclick="window.loveApp.openMessagesModal('archive');">
+          <span>✉️ الرسائل والأرشيف</span>
+        </button>
+        <button class="mobile-nav-item" onclick="window.loveApp.openMessagesModal('favorites');">
+          <span>❤️ المفضلة</span>
+        </button>
+        <button class="mobile-nav-item" onclick="window.loveApp.openStreakModal();">
+          <span>🔥 الستريك ومحاولات التجميد</span>
+        </button>
+        <button class="mobile-nav-item" onclick="window.loveApp.openProfileModal();">
+          <span>⚙️ الإعدادات والصورة الشخصية</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Scene Container (Cinematic Background Layer) -->
+    <main class="scene-container" id="sceneContainer" role="main">
+      <div class="scene-vignette" aria-hidden="true"></div>
+
+      <!-- Floating Handwritten Quotes -->
+      <div class="floating-quote quote-wade" aria-hidden="true" dir="ltr">
+        Different elements...<br>Same heart
+        <span class="quote-heart">♡</span>
+      </div>
+
+      <div class="floating-quote quote-ember" aria-hidden="true" dir="ltr">
+        You make my<br>world brighter
+        <span class="quote-heart">♡</span>
+      </div>
+
+      <!-- Hero Title & Arabic Subtitle -->
+      <div class="hero-title-group">
+        <h1 class="main-title" dir="ltr">
+          365 Days of Love
+          <span class="title-heart" aria-hidden="true">♡</span>
+        </h1>
+        <div class="arabic-subtitle-container" lang="ar" dir="rtl">
+          <p class="arabic-subtitle-line-1">365 رسالة .. لكل يوم في السنة</p>
+          <p class="arabic-subtitle-line-2">لأنك تستحق أن تشعري بالحب والاطمئنان دائماً</p>
+          <span class="arabic-heart-flourish" aria-hidden="true">♡</span>
+        </div>
+      </div>
+
+      <!-- Accessible Interactive Jar Hit Area -->
+      <button 
+        class="jar-hit-area" 
+        id="jarHitArea" 
+        aria-label="افتح رسالة اليوم من البرطمان" 
+        tabindex="0"
+      >
+        <span class="jar-glow-pulse" aria-hidden="true"></span>
+        <span class="jar-tooltip" id="jarTooltip" aria-hidden="true">اضغط لفتح رسالة اليوم ✨</span>
+      </button>
+
+      <!-- Bottom Status Panel -->
+      <section class="status-panel-wrapper" aria-label="حالة الرحلة">
+        <div class="status-panel" id="statusPanel">
+          <!-- Col 1: Journey Day Counter -->
+          <div class="panel-col panel-col-day">
+            <div class="panel-icon-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <div class="panel-text-block">
+              <span class="panel-main-label" id="panelDayNumber">اليوم 1 من 365</span>
+              <span class="panel-sub-label" id="panelDaySubtitle">رسالة اليوم في انتظارك ✨</span>
+            </div>
+          </div>
+
+          <div class="panel-divider" aria-hidden="true"></div>
+
+          <!-- Subgroup: Countdown Timer & Status Tag -->
+          <div class="status-panel-subgroup">
+            <!-- Col 2: Countdown Timer until next day unlocks -->
+            <div class="panel-col panel-col-timer">
+              <div class="timer-icon-box" aria-hidden="true">⏳</div>
+              <div class="panel-text-block">
+                <span class="timer-countdown-value" id="countdownTimer">--:--:--</span>
+                <span class="timer-sub-text">حتى فتح رسالة الغد 🌙</span>
+              </div>
+            </div>
+
+            <div class="panel-divider" aria-hidden="true"></div>
+
+            <!-- Col 3: Status Tag Pill Button -->
+            <div class="panel-col panel-col-status">
+              <button class="status-tag-pill pending" id="panelStatusPill" aria-label="افتح أو شاهد رسالة اليوم">
+                <span class="status-indicator-circle" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" class="status-icon-svg"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                <div class="status-tag-text">
+                  <span class="status-tag-title">رسالة اليوم</span>
+                  <span class="status-tag-state" id="panelStatusStateText">لم تُفتح بعد ✨</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delicate Scroll Indicator -->
+        <div class="scroll-explore-indicator" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <span>اضغط على البرطمان لفتح رسالة اليوم</span>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ====================================================================
+         MESSAGE OPENED DIALOG (Cream Parchment with Wax Seal)
+         ==================================================================== -->
+    <div class="app-modal" id="messageModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalDayNumber">
+      <div class="message-card-wrapper">
+        <!-- Top Red Wax Seal with Embossed Heart -->
+        <div class="wax-seal-wrapper" aria-hidden="true">
+          <div class="wax-seal-inner-rim">
+            <span class="wax-seal-heart">♥</span>
+          </div>
+        </div>
+
+        <div class="message-parchment-card" dir="rtl">
+          <!-- Top Bar Action Controls (Favorite + Close) -->
+          <div class="modal-top-controls">
+            <button class="modal-fav-btn" id="modalFavoriteBtn" aria-label="إضافة إلى المفضلة">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#66584E" stroke-width="2" width="22" height="22">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </button>
+            <button class="modal-close-icon-btn" id="modalCloseBtn" aria-label="إغلاق الرسالة">
+              <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+
+          <!-- Corner Foliage Illustrations -->
+          <svg class="parchment-corner-decor corner-top-left" viewBox="0 0 60 60" fill="none">
+            <path d="M4 35 C10 14, 25 6, 52 4" stroke="#B87333" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M6 44 C14 24, 30 12, 48 10" stroke="#7A8B53" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="16" cy="22" r="3" fill="#D9534F" opacity="0.85"/>
+            <circle cx="28" cy="14" r="2.5" fill="#F0AD4E" opacity="0.85"/>
+          </svg>
+
+          <svg class="parchment-corner-decor corner-top-right" viewBox="0 0 60 60" fill="none">
+            <path d="M4 35 C10 14, 25 6, 52 4" stroke="#B87333" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M6 44 C14 24, 30 12, 48 10" stroke="#7A8B53" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="16" cy="22" r="3" fill="#D9534F" opacity="0.85"/>
+            <circle cx="28" cy="14" r="2.5" fill="#F0AD4E" opacity="0.85"/>
+          </svg>
+
+          <svg class="parchment-corner-decor corner-bottom-left" viewBox="0 0 60 60" fill="none">
+            <path d="M4 35 C10 14, 25 6, 52 4" stroke="#B87333" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="16" cy="22" r="3" fill="#D9534F" opacity="0.85"/>
+          </svg>
+
+          <svg class="parchment-corner-decor corner-bottom-right" viewBox="0 0 60 60" fill="none">
+            <path d="M4 35 C10 14, 25 6, 52 4" stroke="#B87333" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="16" cy="22" r="3" fill="#D9534F" opacity="0.85"/>
+          </svg>
+
+          <!-- Message Day & Subtitle -->
+          <h2 class="modal-day-heading" id="modalDayNumber">اليوم 1 من 365</h2>
+          <p class="modal-day-subheading" id="modalDayTitle">رسالة لقلبك النهاردة...</p>
+
+          <!-- Main Arabic Body Text (Egyptian dialect + warm Modern Standard Arabic) -->
+          <p class="modal-arabic-body" id="modalArabicText">
+            النهاردة بداية رحلتنا سوا.. 365 رسالة محفورة بالحب والدعاء والاطمئنان، عشان كل يوم تفتكر إنك مش لوحدك، وإن ربنا كريم ومعاك.
+          </p>
+
+          <!-- Heart Divider -->
+          <div class="modal-heart-divider" aria-hidden="true">♡</div>
+
+          <!-- Verified Quranic Verse Block -->
+          <div class="modal-verse-block" id="modalVerseSection">
+            <div class="modal-verse-ar" id="modalVerseArabic">{ إِنَّ مَعَ الْعُسْرِ يُسْرًا }</div>
+            <div class="modal-verse-surah-ar" id="modalVerseSurah">(سورة الشرح - الآية 6)</div>
+            <div class="modal-verse-explanation" id="modalVerseExplanation">مهما حسيت إن السكة مسدودة، فَرَج ربنا بيجي فجأة وبألطف طريقة متتخيلهاش.</div>
+            <div class="modal-heart-divider" aria-hidden="true" style="margin-top: 14px;">♡</div>
+          </div>
+
+          <!-- Sign-off Note -->
+          <p class="modal-signoff-line" id="modalSignoff">دايماً معاك وفي ضهرك ❤️</p>
+
+          <!-- Back to Home Action Button -->
+          <button class="modal-back-btn" id="modalBackBtn">العودة للرئيسية</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         CONSOLIDATED JOURNEY MESSAGES & FAVORITES MODAL
+         ==================================================================== -->
+    <div class="app-modal" id="messagesModal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="glass-panel-card" dir="rtl">
+        <div class="glass-modal-header">
+          <h3 class="glass-modal-title">✉️ رسائل الرحلة والأرشيف</h3>
+          <button class="modal-close-generic" aria-label="إغلاق">✕</button>
+        </div>
+
+        <!-- Distinct, fully legible tab controls -->
+        <div class="consolidated-tab-bar" role="tablist">
+          <button class="modal-tab-pill active" id="tabBtnArchive" role="tab" aria-selected="true" data-tab="archive">
+            <span class="tab-icon">📜</span>
+            <span>الأرشيف والرسائل المفتوحة</span>
+          </button>
+          <button class="modal-tab-pill" id="tabBtnFavorites" role="tab" aria-selected="false" data-tab="favorites">
+            <span class="tab-icon">❤️</span>
+            <span>الرسائل المفضلة</span>
+          </button>
+        </div>
+
+        <div class="glass-modal-body">
+          <!-- Archive Tab Content -->
+          <div id="tabContentArchive" class="tab-pane active">
+            <!-- Teaser Card (Upcoming Day - Blurred & Locked) -->
+            <div class="teaser-card-container" id="teaserCardContainer">
+              <!-- Dynamically populated teaser -->
+            </div>
+
+            <!-- List of Opened Messages -->
+            <h4 class="section-sub-title">الرسائل المفتوحة سابقاً</h4>
+            <div class="messages-list-container" id="messagesListContainer"></div>
+          </div>
+
+          <!-- Favorites Tab Content -->
+          <div id="tabContentFavorites" class="tab-pane">
+            <div class="favorites-grid" id="favoritesGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         STREAK & RECOVERY (FREEZE) MODAL
+         ==================================================================== -->
+    <div class="app-modal" id="streakModal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="glass-panel-card" dir="rtl">
+        <div class="glass-modal-header">
+          <h3 class="glass-modal-title">🔥 الستريك ومحاولات الاستعادة (Freeze)</h3>
+          <button class="modal-close-generic" aria-label="إغلاق">✕</button>
+        </div>
+
+        <div class="glass-modal-body">
+          <div class="streak-hero-block">
+            <div class="streak-big-flame">🔥</div>
+            <div class="streak-big-number" id="streakModalCount">0</div>
+            <div class="streak-big-label">أيام متتالية من فتح الرسائل اليومية</div>
+          </div>
+
+          <!-- Streak Freeze / Recovery Box -->
+          <div class="freeze-info-box">
+            <div class="freeze-header">
+              <span class="freeze-icon">❄️</span>
+              <div class="freeze-text-group">
+                <span class="freeze-title">محاولات حماية واستعادة الستريك (Streak Freeze)</span>
+                <span class="freeze-subtitle">لك 5 محاولات استعادة شهرياً تتجدد تلقائياً بداية كل شهر.</span>
+              </div>
+            </div>
+            <div class="freeze-counter-badge" id="freezeBadge">
+              <span id="freezeCountDisplay">5</span> / 5 محاولات متبقية هذا الشهر
+            </div>
+
+            <!-- Dynamic Restore Button (shows when streak broke) -->
+            <div id="restoreStreakContainer" class="restore-streak-container" style="display: none;">
+              <p class="restore-alert-text" id="restoreAlertText">
+                انقطع الستريك السابق! يمكنك استعادته الآن باستخدام محاولة تجميد واحدة.
+              </p>
+              <button type="button" class="btn-restore-streak" id="restoreStreakBtn">
+                ❄️ استعادة الستريك المفقود الآن
+              </button>
+            </div>
+          </div>
+
+          <!-- Journey Progress Bar -->
+          <div class="streak-progress-box">
+            <div class="streak-progress-bar">
+              <div class="streak-progress-fill" id="streakProgressFill" style="width: 1%;"></div>
+            </div>
+            <p class="streak-progress-text" id="streakProgressText">اليوم 1 من 365 (0% مكتمل)</p>
+          </div>
+
+          <p class="streak-quote-footer">
+            "فتح رسالتك اليومية بانتظام يخلي الشعلة منورة دايماً والقلب مطمئن وموصول."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         PROFILE & SETTINGS MODAL (Avatar Upload & Safe Reset)
+         ==================================================================== -->
+    <div class="app-modal" id="profileModal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="glass-panel-card" dir="rtl">
+        <div class="glass-modal-header">
+          <h3 class="glass-modal-title">⚙️ الإعدادات والصورة الشخصية</h3>
+          <button class="modal-close-generic" aria-label="إغلاق">✕</button>
+        </div>
+
+        <div class="glass-modal-body">
+          <!-- Avatar Upload Section -->
+          <div class="settings-group avatar-settings-section">
+            <label class="settings-label">الصورة الشخصية (Avatar)</label>
+            <div class="avatar-upload-row">
+              <div class="avatar-preview-box" id="avatarPreviewBox">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="preview-default-svg">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div class="avatar-controls">
+                <input type="file" id="avatarFileInput" accept="image/*" style="display: none;">
+                <button type="button" class="btn-primary" id="triggerAvatarUploadBtn">
+                  📷 اختيار صورة شخصية
+                </button>
+                <button type="button" class="btn-secondary" id="removeAvatarBtn" style="display: none;">
+                  إزالة الصورة
+                </button>
+              </div>
+            </div>
+            <p class="settings-hint">
+              يتم حفظ صورتك محلياً على جهازك فقط وتظهر بأعلى شريط التنقل.
+            </p>
+          </div>
+
+          <!-- Journey Status Info -->
+          <div class="settings-group" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px;">
+            <label class="settings-label">تقدم الرحلة</label>
+            <p class="settings-hint" id="profileJourneyInfo">
+              أنت الآن في اليوم الأول من رحلة الـ 365 يوماً. تفتح رسالة جديدة تلقائياً مع بداية كل يوم تقويمي.
+            </p>
+          </div>
+
+          <!-- Safe Reset Section -->
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; margin-top: 16px;">
+            <label class="settings-label" style="color: var(--color-red);">إعادة ضبط التقدم (Reset Progress)</label>
+            <p class="settings-hint" style="margin-bottom: 12px;">
+              إعادة الضبط تعيدك لليوم الأول، وتمسح سجل الرسائل المفتوحة، وتعيد خلط (Shuffle) جميع الـ 365 رسالة لتبدأ من جديد برسائل فريدة بالكامل!
+            </p>
+            <button type="button" class="btn-secondary btn-danger-subtle" id="profileResetBtn">
+              🔄 إعادة ضبط الرحلة وإعادة الخلط
+            </button>
+          </div>
+
+          <!-- Offline First Note -->
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; margin-top: 16px; font-size: 12px; color: rgba(255,248,231,0.6); line-height: 1.6;">
+            <p><strong>365 Days of Love</strong></p>
+            <p>كل بياناتك وصورتك وتقدمك محفوظة بأمان تام محلياً على متصفحك (Offline-First). لا يتم إرسال أي بيانات لخوادم خارجية.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toastNotification" role="alert" aria-live="polite"></div>
+
+  </div>
+
+  <!-- App Scripts -->
+  <script type="module" src="config.js"></script>
+  <script type="module" src="messages.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
